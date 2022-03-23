@@ -12,10 +12,6 @@ export abstract class Fighter {
         protected readonly phrase: string
     )  {}
 
-    public catchingPhrase(): string {
-        return "I am " + this.name + " ... " + this.phrase;
-    }
-
     public getUniverse(): string {
         return this.universe;
     }
@@ -32,12 +28,8 @@ export abstract class Fighter {
         return this.weight;
     }
 
-    public getSpeed() {
+    public getSpeed(): number {
         return this.speed;
-    }
-
-    public getHP(): number {
-        return this.HP;
     }
 
     public getAttack(): number {
@@ -45,8 +37,17 @@ export abstract class Fighter {
     }
 
     public getDefense(): number {
-        return this.attack;
+        return this.defense;
     }
 
-    abstract damage(attack: number, defense: number): number;
+    public getHP(): number {
+        return this.HP;
+    }
+
+    public catchingPhrase(): string {
+        return "I am " + this.name + " ... " +this.phrase;
+    }
+
+    abstract damage(defense: number): number;
 }
+

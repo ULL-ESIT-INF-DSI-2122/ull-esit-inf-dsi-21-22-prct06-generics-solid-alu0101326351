@@ -13,7 +13,7 @@ class Combat {
             console.log("TURNO:", turn);
             console.log(this.fighter1.getName(), "ataca a", this.fighter2.getName()); 
 
-            damage = this.fighter1.damage(this.fighter1.getAttack(), this.fighter2.getDefense());
+            damage = this.fighter1.damage(this.fighter2.getDefense());
             damageReceivedfighter2 += damage;
             turn++;
 
@@ -34,7 +34,7 @@ class Combat {
             console.log(this.fighter2.getName(), "ataca a", this.fighter1.getName()); 
 
 
-            damage = this.fighter2.damage(this.fighter2.getAttack(), this.fighter1.getDefense());
+            damage = this.fighter2.damage(this.fighter1.getDefense());
             damageReceivedfighter1 += damage;
             turn++;
 

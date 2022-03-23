@@ -7,11 +7,15 @@ export class DragonBallCharacter extends Fighter {
             this.specialAttack = specialAttack;
         }
 
-    damage(attack: number, defense: number): number {
-        if (this.specialAttack === "Kamehameha") {
-            return (2.5 * attack) - defense;
+    damage(defense: number): number {
+        if (this.specialAttack === "kamehameha") {
+            return (2.5 * this.attack) - defense;
         } else {
-            return (2 * attack) - defense;
+            return (2 * this.attack) - defense;
         }
+    }
+
+    public getSpecialAttack(): string {
+        return this.specialAttack;
     }
 }

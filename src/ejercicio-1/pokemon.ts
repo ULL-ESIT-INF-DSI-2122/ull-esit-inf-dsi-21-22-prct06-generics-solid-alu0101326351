@@ -7,11 +7,15 @@ export class Pokemon extends Fighter {
             this.type = type
         }
 
-    damage(attack: number, defense: number): number {
+    damage(defense: number): number {
         if (this.type === "water" || this.type === "fire") {
-            return (2.5 * attack) - defense;
+            return (2.5 * this.attack) - defense;
         } else {
-            return (2.0 * attack) - defense;
+            return (2.0 * this.attack) - defense;
         }
+    }
+
+    public getType(): string {
+        return this.type;
     }
 }

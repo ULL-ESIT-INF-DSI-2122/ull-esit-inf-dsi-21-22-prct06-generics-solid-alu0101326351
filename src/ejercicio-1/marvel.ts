@@ -8,11 +8,15 @@ export class MarvelCharacter extends Fighter {
             this.weapon = weapon;
         }
 
-    damage(attack: number, defense: number): number {
-        if (this.weapon > "Guante del infinito") {
-            return  (2.5 * attack) - defense;
+    damage(defense: number): number {
+        if (this.weapon === "Guante del infinito") {
+            return  (2.5 * this.attack) - defense;
         } else {
-            return (2 * attack) - defense;
+            return (2 * this.attack) - defense;
         }
+    }
+
+    public getWeapon(): string {
+        return this.weapon
     }
 }

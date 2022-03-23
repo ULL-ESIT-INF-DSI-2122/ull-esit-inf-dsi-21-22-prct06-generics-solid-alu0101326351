@@ -7,11 +7,15 @@ export class StarWarsCharacter extends Fighter {
             this.side = side;
         }
 
-    damage(attack: number, defense: number): number {
+    damage(defense: number): number {
         if (this.side === "light") {
-            return (2.5 * attack) - defense;
+            return (2.5 * this.attack) - defense;
         } else {
-            return (2 * attack) - defense;
+            return (2 * this.attack) - defense;
         }
+    }
+
+    public getSide(): string {
+        return this.side;
     }
 }

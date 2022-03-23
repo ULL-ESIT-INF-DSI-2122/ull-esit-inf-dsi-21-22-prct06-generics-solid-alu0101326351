@@ -1,14 +1,14 @@
-import { Fighter } from './fighter'
+import { Fighter  } from './fighter'
 
-class Fighterex {
+export class Fighterex {
     constructor(private fighters: Fighter[]) {}
 
-    public showFighters() {
+    public presentation() {
         let fighters: string[] = [];
         this.fighters.forEach((item: Fighter) => {
             fighters.push(item.catchingPhrase());
         });
 
-        return fighters;
+        return fighters.toString();
     }
 }
