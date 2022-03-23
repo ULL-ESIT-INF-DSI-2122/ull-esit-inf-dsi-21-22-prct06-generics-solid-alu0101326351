@@ -49,7 +49,6 @@ abstract class BasicStreamableCollection<T> implements Streamable<T> {
     public delete(name: string) {
         let index: number = this.content.indexOf(name);
         if(index != -1) {
-            // Eliminamos ese elemento.
             this.content.splice(index, 1);
         }
         return this.content;
