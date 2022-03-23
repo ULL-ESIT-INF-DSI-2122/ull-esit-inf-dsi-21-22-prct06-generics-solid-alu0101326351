@@ -89,5 +89,3 @@ export class StringPrintableCollection extends PrintableCollection<string> {
         return this.items.join()
     }
 }
-
-

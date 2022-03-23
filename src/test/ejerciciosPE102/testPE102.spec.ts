@@ -1,6 +1,6 @@
 import 'mocha';
 import { expect } from 'chai';
-import { NumericPrintableCollection, StringPrintableCollection } from '../ejerciciosPE102/ejPE102'
+import { NumericPrintableCollection, StringPrintableCollection } from '../../ejerciciosPE102/ejPE102'
 
 describe("NUMERIC CLASS TEST", () => {
     let collectionTest = new NumericPrintableCollection([1, 2, 3]);
