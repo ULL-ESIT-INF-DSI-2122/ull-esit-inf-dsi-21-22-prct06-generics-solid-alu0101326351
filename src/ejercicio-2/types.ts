@@ -1,5 +1,8 @@
 export type myType = Film | Serie | Documental;
 
+/**
+ * Objeto que almacena información de una serie
+ */
 export type Serie = {
     name: string,
     year: number,
@@ -8,6 +11,9 @@ export type Serie = {
     finish: boolean
 };
 
+/**
+ * Objeto que almacena información de una película
+ */
 export type Film = {
     name: string,
     year: number,
@@ -17,6 +23,9 @@ export type Film = {
     mainActor: string
 };
 
+/**
+ * Objeto que almacena información de un documental
+ */
 export type Documental = {
     name: string,
     year: number,
