@@ -1,8 +1,20 @@
 import { Fighter } from "./fighter";
 
-class Combat {
+/**
+ * Clase que implementa un combate entre dos Fighters
+ */
+export class Combat {
+    /**
+     * Constructor de la clase combat. Recibe dos fighters
+     * @param fighter1 
+     * @param fighter2 
+     */
     constructor(private fighter1: Fighter, private fighter2: Fighter) {}
 
+    /**
+     * Inicia el combate y retorna el nombre del ganador
+     * @returns 
+     */
     public start(): string {
         let turn: number = 1;
         let damageReceivedfighter1: number = 0;
