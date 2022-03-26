@@ -96,7 +96,7 @@ La clase Fighterex, tiene un array de Fighters el cual se pasa como parámetro. 
         }
     }
 
-La clase combat tiene el constructor que recibe a los dos 3
+La clase combat tiene el constructor que recibe a los dos luchadores y el método start() que inicia el combate. En cada turno se calcula el daño que causa el atacante y se suma a damageReceivedfighter2, luego se imprime por pantalla los datos del ataque y la vida restante de cada uno. Se calcula si la vida de el luchador 2 es igual o menor a 0. En caso afirmativo se acaba el combate imprimiendo al ganador por pantalla y terminando el bucle infinito, en caso negativo, se invierten los papeles y el luchador 2 ataca al 1. Esto se repite hasta que el daño recibido por alguno de los dos luchadores sea igual o mayor a su vida.
 
 class Combat {
     /**
@@ -159,3 +159,124 @@ class Combat {
         }
     }
 }
+
+
+
+## Ejercicio 2: DSI-FLIX
+
+Primero creamos los tipos Film, Serie y Documental que contendrán la información de cada formato. Algunos atributos son comunes a todos ellos como el año o la clasificación y otro son exclusivos de cada uno como las temporadas en las series o el actor principal en las películas. También creamos el tipo myType como la unión de los 3 anteriores lo cual nos hará falta mas adelante al definir las interfaces y clases genéricas.
+
+    export type myType = Film | Serie | Documental;
+
+    export type Serie = {
+        name: string,
+        year: number,
+        seasons: number,
+        calification: number,
+        finish: boolean
+    };
+
+    export type Film = {
+        name: string,
+        year: number,
+        duration: number,
+        calification: number,
+        rentPrice: number,
+        mainActor: string
+    };
+
+    export type Documental = {
+        name: string,
+        year: number,
+        topic: string,
+        calification: number
+    }
+
+
+Creamos la interfaz genérica streamable que definirá los métodos básicos que toda plataforma de stream debe tener. Recibe un parámetro T que extiende al tipo que hemos creado antes llamado myType que hace que solo puedan recibirse Film, Serie o Documentals como parámetros.
+
+    export interface Streamable<T extends myType> {
+        push(newItem: T);
+        rankByYear(): T[];
+        rankByCalification(): T[];
+        getNames(): string;
+    };
+
+
+Luego creamos la clase genérica basicStreamable que implementa la interfaz streamable. Aqui se implementan los métodos básicos de las plataformas online como son push() para añadir un nuevo item, rankByYear() o rankByCalification() que devuelven un array con el contenido ordenado por año o por calificación y por último getNames() que devuelve todos los nombres del contenido de la plataforma o undefined en caso de que no haya contenido aun .
+
+    export abstract class BasicStreamableCollection<T extends myType> implements Streamable<T> {
+
+        constructor(public content: T[]) {}
+
+        public push(newItem: T) {
+            this.content.push(newItem);
+        }
+
+        public rankByCalification(): T[] {
+            return this.content.sort(function (a, b) {
+                return (b.calification - a.calification);
+            });
+        }
+
+        public rankByYear(): T[] {
+            return this.content.sort(function (a, b) {
+                return (b.year - a.year);
+            });    
+        }
+
+        public getNames(): string | undefined {
+            let names: string = "";
+            this.content.forEach((item: T) => {
+                names += item.name + "\n";
+            });
+
+            if (names.length !== 0) {
+                return names;
+            } else {
+                return undefined;
+            }
+        }
+    }
+
+
+Por último quedan implementar las clases que definen las plataformas de películas, series y documentales por separado. En la clase filmsPlataform(), el constructor llama al constructor de basicStreamable() pasandole como parámetro un array de películas. Luego se implementan dos métodos exclusivos de las plataformas de películas que son getPriceOf() al que se le pasa el título de una película y devuelve el precio de su alquiler o undefined en caso que esa película no exista en la plataforma. Por otro lado searchByActor() a la que le pasa el nombre de un actor y devuelve las películas de ese actor disponibles en la plataforma o undefined en caso de no haber ninguna.
+
+    export class FilmsPlatform extends BasicStreamableCollection<Film> {
+
+        constructor(films: Film[]) {
+            super(films);
+        }
+
+        public getPriceOf(name: string): string | undefined {
+            let price: string = "";
+            this.content.forEach((item: Film) => {
+                if (item.name == name) {
+                    price += item.name + " -> " + item.rentPrice;
+                }
+            });
+
+            if (price.length !== 0) {
+                return price;
+            } else {
+                return undefined;
+            }
+        }
+
+        public searchByActor(name: string): string | undefined {
+            let result: string = "";
+            this.content.forEach((item: Film) => {
+                if (item.mainActor == name) {
+                    result += item.name + "\n";
+                }
+            });
+
+            if (result.length !== 0) {
+                return result;
+            } else {
+                return undefined;
+            }
+        }
+    }
+
+Las clases seriesPlataform() y documentalPlataform() están implementada de la misma manera con sus métodos propios. La plataformas de series tienen un método llamado isFinished() al que se le pasa el nombre de una serie y retorna true si ya ha acabado o false si aun quedan capítulos por salir. Las plataformas de documentales tienen un método llamado getByTopic() al que se le pasa un tema y esta devuelve todos los documentales relacionados de la plataforma o undefined en caso de no haber ninguno
