@@ -286,6 +286,8 @@ Las clases seriesPlataform() y documentalPlataform() están implementada de la m
 
 Se han creado dos clases encoder y decoder para respetar el principio single-responsability por el que cada clase debe tener un solo propósito, en este caso una cifra los mensajes y la otra la descifra
 
+Ambas clases reciben un array de strings con el elfabeto que se va a trabajar y los métodos encode() y decode() reciben un mensaje y una clave. Se recorren posición a posición el mensaje y se desplaza cada una las veces que indique la clave. En el caso del cifrado se suma la posición que ocupa la letra a la de la clave y en el descifrado se resta
+
 
     export class Encoder {
 
