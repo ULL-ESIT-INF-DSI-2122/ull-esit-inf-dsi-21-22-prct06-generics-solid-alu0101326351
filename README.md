@@ -280,3 +280,43 @@ Por último quedan implementar las clases que definen las plataformas de pelícu
     }
 
 Las clases seriesPlataform() y documentalPlataform() están implementada de la misma manera con sus métodos propios. La plataformas de series tienen un método llamado isFinished() al que se le pasa el nombre de una serie y retorna true si ya ha acabado o false si aun quedan capítulos por salir. Las plataformas de documentales tienen un método llamado getByTopic() al que se le pasa un tema y esta devuelve todos los documentales relacionados de la plataforma o undefined en caso de no haber ninguno
+
+
+## Ejercicio 3: El cifrado indescifrable
+
+Se han creado dos clases encoder y decoder para respetar el principio single-responsability por el que cada clase debe tener un solo propósito, en este caso una cifra los mensajes y la otra la descifra
+
+
+    export class Encoder {
+
+        constructor(private letters: string[]) {}
+
+        public encode(message: string, key: string): string {
+            let cifrado: string = '';
+            for (let i: number = 0; i < message.length; i++) {
+                const char: string = key[i % key.length];
+                cifrado += this.letters[((this.letters.indexOf(message[i])) + (this.letters.indexOf(char) +1)) % this.letters.length];
+            }
+            return cifrado;
+        }
+    }
+
+    export class Decoder {
+
+        constructor(private letters: string[]) {}
+
+        public decode(message: string, key: string): string {
+            let result: string = '';
+            for (let i: number = 0; i < message.length; i++) {
+                const iKey: string = key[i % key.length];
+                let index: number = ((this.letters.indexOf(message[i])) - (this.letters.indexOf(iKey) + 1));
+
+                if (index < 0) {
+                    index += this.letters.length;
+                }
+
+                result += this.letters[index];
+            }
+            return result;
+        }
+    }
